@@ -1,0 +1,31 @@
+openapi: 3.0.1
+info:
+  title: Alticci API  
+  version: '0.1'
+  description: This api provides one endpoint to obtain the nth number in the alticci sequence. Developed by Luís Pereira
+servers:
+  - url: https://localhost:8060
+paths:
+  /alticci/{n}:
+    get:
+      summary: Returns the 'nth' number of the Alticci sequence
+      description: The Alticci sequence is defined as such; a(0)=0; a(1)=1; a(2)=1; a(n>2)=a(n-3)+a(n-2).
+      parameters:
+        - name: n
+          in: path
+          required: true
+          description: Index in the Alticci sequence.
+          schema:
+            type : integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: A single numerical value equal to a(n) --- BigInteger converted to string
+          content:
+            text/plain;charset=UTF-8:
+              schema:
+                type: string
+                example: "3"
+        '400':
+          description: The specified index is invalid (it must be a whole non-negative number)
